@@ -27,6 +27,9 @@ WORKDIR /usr/share/nginx/html
 # Remove default nginx static resources
 RUN rm -rf ./*
 # Copies static resources from builder stage
-COPY --from=builder /app/build .
-# Containers run nginx with global directives and daemon off
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+#COPY --from=builder /app/build .
+FROM nginx:stable-alpine
+COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
