@@ -14,9 +14,12 @@ import {
 import Box from "@mui/material/Box";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import AddProduct from "../components/AddProduct";
 import ProductCard from "../components/ProductCard";
 import Sidebar from "../components/Sidebar";
+import { loginSuccess } from "../redux/loginSlice";
 const Product = () => {
   const drawerWidth = 240;
   const [category, setCategory] = useState(1);
@@ -26,6 +29,8 @@ const Product = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const { currentUser } = useSelector((state) => state.login);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -43,7 +48,14 @@ const Product = () => {
     };
     getProduct();
   }, [category]);
+  if (currentUser?.data?.role !== "admin") {
+    dispatch(loginSuccess(null));
+    return <Navigate to="/login" />;
+  }
 
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
   return (
     <>
       <Box sx={{ display: "flex" }}>
