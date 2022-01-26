@@ -15,7 +15,11 @@ import { useState } from "react";
 const ProductCard = (props) => {
   const { listProduct } = props;
   const [open, setOpen] = useState(false);
-
+  const [name, setName] = useState(listProduct?.name)
+  const [price, setPrice] = useState(listProduct?.price)
+  const [stocks, setStocks] = useState(listProduct?.stocks)
+  const [description, setDescription] = useState(listProduct?.description)
+  console.log(name,price,stocks,description)
   return (
     <>
       <Card sx={{ maxWidth: 345 }}>
@@ -80,34 +84,50 @@ const ProductCard = (props) => {
               label="Sub Kategori"
               defaultValue={listProduct?.sub_category}
             />
-             <TextField
-              
+            <TextField
               id="outlined"
               label="Nama Produk"
+              name="name"
               defaultValue={listProduct?.name}
+              onChange={(e)=>setName(e.target.value)}
             />
             <TextField
-              
               id="outlined"
               label="Harga"
+              name="price"
               defaultValue={listProduct?.price}
+              onChange={(e)=>setPrice(e.target.value)}
             />
             <TextField
-              
               id="outlined"
               label="Stock"
+              name="stocks"
               defaultValue={listProduct?.stocks}
+              onChange ={(e)=>setStocks(e.target.value)}
               type="number"
             />
-             <TextField
-              
+            <TextField
               id="outlined"
               label="Description"
+              name="description"
               defaultValue={listProduct?.description}
+              onChange={(e)=>setDescription(e.target.value)}
             />
             <div>
-            <Button variant="outlined" color = "primary" style={{marginRight:"15px"}}>Edit</Button>
-            <Button variant="outlined" color = "secondary" onClick={() => setOpen(false)}>Cancel</Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                style={{ marginRight: "15px" }}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={() => setOpen(false)}
+              >
+                Cancel
+              </Button>
             </div>
           </Box>
         </Container>
