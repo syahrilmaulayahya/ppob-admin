@@ -6,19 +6,25 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import Login from "./Login";
+import { loginSuccess } from "../redux/loginSlice";
 
 const Dashboard = () => {
   const drawerWidth = 240;
   const { currentUser } = useSelector((state) => state.login);
-  console.log(currentUser?.data?.role)
-  if(currentUser?.data?.role !== "admin"){
-    return(
-      <Login/>
-    )
+  const dispatch = useDispatch();
+
+  if (currentUser?.data?.role !== "admin") {
+    dispatch(loginSuccess(null));
+    return <Navigate to="/login" />;
   }
+
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -44,7 +50,10 @@ const Dashboard = () => {
           <Toolbar />
 
           <Typography>
-            Laporan penjualan hari ini bisa diunduh <Link href="https://app.stevenhoyo.co/static/report.csv">disini</Link>{" "}
+            Laporan penjualan hari ini bisa diunduh{" "}
+            <Link href="https://app.stevenhoyo.co/static/report.csv">
+              disini
+            </Link>{" "}
           </Typography>
         </Box>
       </Box>
