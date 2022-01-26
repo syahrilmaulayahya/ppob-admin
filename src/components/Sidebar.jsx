@@ -10,12 +10,15 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import Inventory2Icon from "@mui/icons-material/Inventory2";
+
 import Dashboard from "@mui/icons-material/Dashboard";
 import ChatIcon from "@mui/icons-material/Chat";
+import { Inventory2 } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const drawerWidth = 240;
+  const navigate = useNavigate()
 
   return (
     <Drawer
@@ -47,20 +50,24 @@ const Sidebar = () => {
 
       <Divider />
       <List>
-        {["Dashboard", "Product", "Chat"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index === 0 ? (
-                <Dashboard />
-              ) : index === 1 ? (
-                <Inventory2Icon />
-              ) : (
-                <ChatIcon />
-              )}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem button onClick={()=>navigate('/')}>
+          <ListItemIcon>
+            <Dashboard />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItem>
+        <ListItem button onClick={()=>navigate('/product')}>
+          <ListItemIcon>
+            <Inventory2 />
+          </ListItemIcon>
+          <ListItemText primary="Product" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <ChatIcon />
+          </ListItemIcon>
+          <ListItemText primary="Chat" />
+        </ListItem>
       </List>
     </Drawer>
   );
