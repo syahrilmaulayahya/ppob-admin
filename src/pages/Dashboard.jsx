@@ -55,6 +55,15 @@ const Dashboard = () => {
               disini
             </Link>{" "}
           </Typography>
+          <Typography>
+            Link monitoring backend {" "}
+            <Link href="http://api.stevenhoyo.co:8000/" target="_blank">
+              disini
+            </Link>
+          </Typography>
+          <Typography>
+            Diupdate tiap jam 21:00
+          </Typography>
         </Box>
       </Box>
     </>

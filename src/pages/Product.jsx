@@ -25,6 +25,7 @@ const Product = () => {
   const [category, setCategory] = useState(1);
   const handleChange = (event) => {
     setCategory(event.target.value);
+    
   };
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(false);
