@@ -19,14 +19,16 @@ import MuiAlert from "@mui/material/Alert";
 import React from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+
 const AddProduct = () => {
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState(1);
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("");
   const { currentUser } = useSelector((state) => state.login);
   const [errMsg, setErrmsg] = useState("");
- 
+  const [openAlert, setOpenAlert] = useState(false);
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
   
   const [getSubCat, setGetSubCat] = useState(null);
   const [subCategory, setSubCategory] = useState("");
@@ -43,17 +45,17 @@ const AddProduct = () => {
     setInput({ ...input, category_id:event.target.value })
   };
   const addProduct = async (data) => {
-    setLoading(true);
+
     try {
       await axios.post("https://api.stevenhoyo.co/v1/product/", data, {
         headers: { Authorization: `Bearer ${currentUser?.data?.token}` },
       });
       setOpenAlert(true);
-      setLoading(false);
+    
     } catch (err) {
-      console.log(err.response.data);
-      setError(err);
-      setLoading(false);
+     
+   
+  
     }
   };
   const handleAddProduct = ()=>{
@@ -68,13 +70,9 @@ const AddProduct = () => {
     setSubCategory(event.target.value);
     setInput({ ...input, sub_category:event.target.value })
   };
-  console.log("Sub Category", subCategory);
-  console.log("Input", input);
 
-  const [openAlert, setOpenAlert] = useState(false);
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
+
+
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -87,7 +85,7 @@ const AddProduct = () => {
     const getSubCat = async () => {
       try {
         const res = await axios.get("https://api.stevenhoyo.co/v1/subcategory");
-        console.log(res?.data?.data);
+       
         setGetSubCat(res?.data?.data);
       } catch (err) {
         return err;

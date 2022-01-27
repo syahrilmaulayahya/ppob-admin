@@ -42,11 +42,10 @@ const ProductCard = (props) => {
     price: listProduct?.price,
     stocks: listProduct?.stocks,
   });
-  console.log(listProduct?.id);
-  console.log(input);
+ 
   const [errMsg, setErrmsg] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+
   const { currentUser } = useSelector((state) => state.login);
   const editProduct = async (data) => {
     setLoading(true);
@@ -57,8 +56,7 @@ const ProductCard = (props) => {
       setOpenAlert(true);
       setLoading(false);
     } catch (err) {
-      console.log(err.response.data);
-      setError(err);
+      
       setLoading(false);
     }
   };
