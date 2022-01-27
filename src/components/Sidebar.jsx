@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 
 import Dashboard from "@mui/icons-material/Dashboard";
-import ChatIcon from "@mui/icons-material/Chat";
 import { Inventory2 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
@@ -61,12 +60,6 @@ const Sidebar = () => {
             <Inventory2 />
           </ListItemIcon>
           <ListItemText primary="Product" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <ChatIcon />
-          </ListItemIcon>
-          <ListItemText primary="Chat" />
         </ListItem>
       </List>
     </Drawer>
